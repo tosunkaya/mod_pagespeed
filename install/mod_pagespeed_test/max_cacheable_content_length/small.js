@@ -1,1 +1,1 @@
-document.write('<h1>A small Javascript file with 67 bytes.</h1>');
+var a=4;
