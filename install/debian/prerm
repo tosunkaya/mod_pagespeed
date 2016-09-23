@@ -3,6 +3,8 @@
 case "$1" in
     remove)
         test -e /etc/apache2/mods-enabled/pagespeed.load && a2dismod pagespeed
+        test -L /etc/apache2/conf.d/pagespeed_libraries.conf && \
+             rm /etc/apache2/conf.d/pagespeed_libraries.conf
     ;;
     upgrade|deconfigure|failed-upgrade)
     ;;
