@@ -20,8 +20,4 @@ compiler:
   - gcc
 notifications:
   email:
-    - cheesy@google.com
     - jefftk@google.com
-    - morlovich@google.com
-    - jmarantz@google.com
-    - huibao@google.com
