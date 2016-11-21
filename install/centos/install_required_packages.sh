@@ -27,7 +27,7 @@ binary_packages=(subversion httpd gcc-c++ gperf make rpm-build
 src_packages=()
 
 if "$additional_test_packages"; then
-  binary_packages+=(php php-mbstring)
+  binary_packages+=(php php-mbstring autoconf libtool valgrind pcre-devel)
   src_packages+=(redis-server)
 fi
 

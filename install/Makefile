@@ -86,10 +86,10 @@ STAGING_DIR = /tmp/mod_pagespeed.install
 
 # The mod_pagespeed module is specified relative to the install directory,
 # which is src/install.
-MOD_PAGESPEED_ROOT = $(shell dirname `pwd`)
-PAGESPEED_MODULE = $(MOD_PAGESPEED_ROOT)/out/Release/libmod_pagespeed.so
-PAGESPEED_MODULE_24 = $(MOD_PAGESPEED_ROOT)/out/Release/libmod_pagespeed_ap24.so
-PAGESPEED_JS_MINIFY = $(MOD_PAGESPEED_ROOT)/out/Release/js_minify
+GIT_SRC = $(shell dirname `pwd`)
+PAGESPEED_MODULE = $(GIT_SRC)/out/Release/libmod_pagespeed.so
+PAGESPEED_MODULE_24 = $(GIT_SRC)/out/Release/libmod_pagespeed_ap24.so
+PAGESPEED_JS_MINIFY = $(GIT_SRC)/out/Release/js_minify
 
 # On systems dervied from the NCSA configuration files by Rob McCool,
 # you enable a module by writing its .conf file into
@@ -286,7 +286,7 @@ setup_staging_dir :
 	mkdir -p $(STAGING_DIR)
 
 LIBRARY_CONF_SOURCE = \
-    $(MOD_PAGESPEED_ROOT)/net/instaweb/genfiles/conf/pagespeed_libraries.conf
+    $(GIT_SRC)/net/instaweb/genfiles/conf/pagespeed_libraries.conf
 
 # Generate a configuration file and copy it to the staging area.
 # Also copy the example tree, and the built Apache module
@@ -382,7 +382,7 @@ apache_install_conf :
 setup_test_machine :
 	APACHE_DOC_ROOT=$(APACHE_DOC_ROOT) \
 	APACHE_CONF_FILE=$(APACHE_CONF_FILE) \
-	MOD_PAGESPEED_ROOT=$(MOD_PAGESPEED_ROOT) \
+	GIT_SRC=$(GIT_SRC) \
 	APACHE_CONF_D=$(APACHE_CONF_D) \
 	./setup_test_machine.sh
 	sudo $(APACHE_CONTROL_PROGRAM) restart

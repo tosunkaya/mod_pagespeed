@@ -31,12 +31,20 @@ fi
 
 install_redis_from_src=false
 if "$additional_test_packages"; then
-  binary_packages+=(memcached libapache2-mod-php5)
+  binary_packages+=(memcached libapache2-mod-php5 autoconf valgrind libev-dev
+    libssl-dev libpcre3-dev)
 
-  if version_compare $(lsb_release -sr) -ge 14.04; then
+  if version_compare $(lsb_release -sr) -ge 16.04; then
     binary_packages+=(redis-server)
   else
     src_packages+=(redis-server)
+  fi
+
+  if [ -n "$(apt-cache search --names-only '^libtool-bin$')" ]; then
+    # With Ubuntu 16+ we need libtool-bin instead.
+    binary_packages+=("libtool-bin")
+  else
+    binary_packages+=("libtool")
   fi
 fi
 

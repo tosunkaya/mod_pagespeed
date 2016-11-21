@@ -8,12 +8,14 @@ source $(dirname "$BASH_SOURCE")/build_env.sh || exit 1
 
 buildtype=Release
 run_tests=true
+run_packaging=true
 
-eval set -- "$(getopt --long debug,skip_tests -o '' -- "$@")"
+eval set -- "$(getopt --long debug,skip_packaging,skip_tests -o '' -- "$@")"
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --debug) buildtype=Debug; shift; ;;
+    --skip_packaging) run_packaging=false; shift; ;;
     --skip_tests) run_tests=false; shift; ;;
     --) shift; break ;;
     *) echo "getopt error" >&2; exit 1 ;;
@@ -21,11 +23,11 @@ while [ $# -gt 0 ]; do
 done
 
 if [ $# -ne 0 ]; then
-  echo "Usage: $(basename $0) [--debug] [--skip_tests]" >&2
+  echo "Usage: $(basename $0) [--debug] [--skip_packaging] [--skip_tests]" >&2
   exit 1
 fi
 
-if [ -e psol ] ; then
+if $run_packaging && [ -e psol ] ; then
   echo "A psol/ directory already exists. Move it somewhere else and rerun."
   exit 1
 fi
@@ -58,6 +60,11 @@ if ! grep -q "^#define MOD_PAGESPEED_VERSION_STRING \"$build_version\"$" \
           $version_h; then
   echo "Wrong version found in $version_h" >&2
   exit 1
+fi
+
+echo "PSOL built as pagespeed/automatic/pagespeed_automatic.a"
+if ! $run_packaging; then
+  exit 0
 fi
 
 mkdir psol/
