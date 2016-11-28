@@ -29,10 +29,23 @@ if version_compare $(lsb_release -rs) -lt 14.04; then
   binary_packages+=(gcc-mozilla)
 fi
 
+# Sometimes the names of packages change between versions.  This goes through
+# its arguments and returns the first package name that exists on this OS.
+function pick_available_version() {
+  for candidate_version in "$@"; do
+    if [ -n "$(apt-cache search --names-only "^${candidate_version}$")" ]; then
+      echo "$candidate_version"
+      return
+    fi
+  done
+  echo "error: no available version of $@" >&2
+  exit 1
+}
+
 install_redis_from_src=false
 if "$additional_test_packages"; then
   binary_packages+=(memcached libapache2-mod-php5 autoconf valgrind libev-dev
-    libssl-dev libpcre3-dev)
+    libssl-dev libpcre3-dev default-jre)
 
   if version_compare $(lsb_release -sr) -ge 16.04; then
     binary_packages+=(redis-server)
@@ -40,12 +53,9 @@ if "$additional_test_packages"; then
     src_packages+=(redis-server)
   fi
 
-  if [ -n "$(apt-cache search --names-only '^libtool-bin$')" ]; then
-    # With Ubuntu 16+ we need libtool-bin instead.
-    binary_packages+=("libtool-bin")
-  else
-    binary_packages+=("libtool")
-  fi
+  binary_packages+=( \
+    $(pick_available_version libtool-bin libtool)
+    $(pick_available_version libapache2-mod-php libapache2-mod-php5))
 fi
 
 apt-get -y install "${binary_packages[@]}"
