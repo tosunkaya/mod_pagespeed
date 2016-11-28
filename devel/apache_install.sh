@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Script to install a debuggable mod_pagespeed.so into the Apache
 # distribution, usually in ~/apache2.

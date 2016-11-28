@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # See bug 3103898 and
 # http://carlosrivero.com/fix-apache

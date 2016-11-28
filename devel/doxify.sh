@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Runs a file in $1 through a giant sed script, transforming normal
 # C++ comments to Doxygen comments.  The resultant file is placed in

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # This script is intended to be run from devel/mps_load_test.sh, although it can
 # be run directly as well.

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This scripts reads a list of URLs from the provided file, and
 # fetches them in parallel from a local slurping proxy in a randomized
 # order. Loading times and statuses for them are then output to

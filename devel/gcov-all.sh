@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # A helper for running gcov on all of the project sources.
 # Usage:

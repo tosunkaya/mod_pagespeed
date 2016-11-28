@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Makes linux enable fast reuse of sockets in TIME-WAIT state.  We need this for
 # load testing so that we don't run out of connection table slots and fail to

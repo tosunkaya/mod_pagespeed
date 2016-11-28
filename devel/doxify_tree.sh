@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Processes the open-source header files using Doxygen.  Each header
 # must be preprocessed using doxify.sh to convert normal C++ comments

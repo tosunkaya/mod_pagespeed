@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Script to create a server certificate (and key) file for Apache,
 # usually in ~/apache2.

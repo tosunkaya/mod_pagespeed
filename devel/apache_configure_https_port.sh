@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Script to enable SSL on the given port for Apache, usually in ~/apache2.
 #

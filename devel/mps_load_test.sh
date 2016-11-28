@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Note: this script is not yet usable outside Google, because it depends on a
 # corpus that we can't open source.
