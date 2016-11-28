@@ -59,7 +59,7 @@ fi
 this_dir=$(dirname "${BASH_SOURCE[0]}")
 cd "$this_dir"
 
-tests_missing=$(check_tests_are_run.sh)
+tests_missing=$(./check_tests_are_run.sh)
 if [ ! -z "$tests_missing" ]; then
   echo "$tests_missing"
   FAIL=true
