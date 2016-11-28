@@ -55,6 +55,7 @@ if "$additional_dev_packages"; then
 
   binary_packages+=( \
     $(pick_available_version libtool-bin libtool)
+    $(pick_available_version php-cgi php5-cgi)
     $(pick_available_version libapache2-mod-php libapache2-mod-php5))
 fi
 
