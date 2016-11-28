@@ -258,7 +258,7 @@ all : build_libraries
 # Flags used to compile static_rewriter.cc.  Note that these are not
 # the flags used to compile pagespeed_automatic, which is compiled
 # with either BUILDTYPE=Release or BUILDTYPE=Debug
-override CXXFLAGS := $(CXXFLAGS) -std=gnu++0x
+override CXXFLAGS := $(CXXFLAGS) -std=gnu++0x -D_GLIBCXX_USE_CXX11_ABI=0
 
 $(PSOL) : $(LIBS)
 	@echo Merging libraries, logs in $(MERGE_LOG) ...
