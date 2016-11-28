@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Script to enable PHP5 in Apache assuming it has already been installed into
 # the standard Ubuntu directory (/etc/apache, /usr/apache) rather than the
