@@ -64,7 +64,7 @@ if $verbose; then
 fi
 
 sudo $run_in_chroot \
-  install/install_required_packages.sh --additional_test_packages
+  install/install_required_packages.sh --additional_dev_packages
 $run_in_chroot install/build_mps.sh "${build_mps_args[@]}"
 
 verbose_flag=

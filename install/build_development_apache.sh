@@ -12,7 +12,7 @@ this_dir="$(dirname "${BASH_SOURCE[0]}")"
 src="$this_dir/.."
 third_party="$(readlink -m "$src/third_party")"
 
-"$src/install/install_required_packages.sh" --additional_test_packages
+"$src/install/install_required_packages.sh" --additional_dev_packages
 
 if [ $# -ne 2 ]; then
   echo Usage: $0 '2.2|2.4 worker|event|prefork|prefork-debug'

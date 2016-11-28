@@ -30,12 +30,12 @@ fi
 tarball="$(readlink -f $1)"
 
 source "$src/net/instaweb/public/VERSION"
-export PSOL_VERSION="$MAJOR.$MINOR.$BUILD.$PATCH"
+PSOL_VERSION="$MAJOR.$MINOR.$BUILD.$PATCH"
 
 WORKDIR=$(mktemp -d)
 trap "rm -r $WORKDIR" EXIT
 
-export OUTPUT_DIRECTORY="$WORKDIR/doxygen_out"
+OUTPUT_DIRECTORY="$WORKDIR/doxygen_out"
 mkdir "$OUTPUT_DIRECTORY"
 
 hacked_copies="$WORKDIR/hacked_copies"
@@ -45,6 +45,11 @@ echo Preprocessing header files to turn normal C++ comments into Doxygen-style
 echo comments....
 find net/ pagespeed/ -name "*.h" -exec "$src/devel/doxify.sh" {} \
      "$hacked_copies" \;
+
+# These variables are referenced in doxygen.cfg, so export them before running
+# doxygen.
+export PSOL_VERSION
+export OUTPUT_DIRECTORY
 
 log_file=$OUTPUT_DIRECTORY/doxygen.log
 cd $hacked_copies

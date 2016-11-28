@@ -10,14 +10,14 @@ if [ "$UID" -ne 0 ]; then
   exit 1  # NOTREACHED
 fi
 
-additional_test_packages=false
-if [ "${1:-}" = "--additional_test_packages" ]; then
-  additional_test_packages=true
+additional_dev_packages=false
+if [ "${1:-}" = "--additional_dev_packages" ]; then
+  additional_dev_packages=true
   shift
 fi
 
 if [ $# -ne 0 ]; then
-  echo "Usage: $(basename $0) [--additional_test_packages]" >&2
+  echo "Usage: $(basename $0) [--additional_dev_packages]" >&2
   exit 1
 fi
 
@@ -43,7 +43,7 @@ function pick_available_version() {
 }
 
 install_redis_from_src=false
-if "$additional_test_packages"; then
+if "$additional_dev_packages"; then
   binary_packages+=(memcached autoconf valgrind libev-dev libssl-dev
     libpcre3-dev default-jre)
 
@@ -59,4 +59,6 @@ if "$additional_test_packages"; then
 fi
 
 apt-get -y install "${binary_packages[@]}"
-install_from_src "${src_packages[@]}"
+if [ ${#src_packages[@]} -gt 0 ]; then
+  install_from_src "${src_packages[@]}"
+fi
