@@ -44,8 +44,8 @@ function pick_available_version() {
 
 install_redis_from_src=false
 if "$additional_test_packages"; then
-  binary_packages+=(memcached libapache2-mod-php5 autoconf valgrind libev-dev
-    libssl-dev libpcre3-dev default-jre)
+  binary_packages+=(memcached autoconf valgrind libev-dev libssl-dev
+    libpcre3-dev default-jre)
 
   if version_compare $(lsb_release -sr) -ge 16.04; then
     binary_packages+=(redis-server)
