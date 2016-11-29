@@ -4,7 +4,8 @@
 #
 # Builds psol tarball from a mod_pagespeed checkout.
 
-source $(dirname "$BASH_SOURCE")/build_env.sh || exit 1
+cd $(dirname "$BASH_SOURCE")/..
+source install/build_env.sh || exit 1
 
 buildtype=Release
 run_tests=true
@@ -37,6 +38,11 @@ echo Building PSOL binaries...
 MAKE_ARGS=(V=1 BUILDTYPE=$buildtype)
 
 mkdir -p log/
+
+if ! [ -f Makefile ]; then
+  # Run gyp to generate Makefiles.
+  python build/gyp_chromium --depth=.
+fi
 
 if $run_tests; then
   run_with_log log/psol_build.log make "${MAKE_ARGS[@]}" \
