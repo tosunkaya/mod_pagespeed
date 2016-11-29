@@ -11,8 +11,9 @@ buildtype=Release
 install_deps=true
 run_tests=true
 run_packaging=true
+verbose=""
 
-eval set -- "$(getopt --long debug,skip_deps,skip_packaging,skip_tests -o '' -- "$@")"
+eval set -- "$(getopt --long debug,skip_deps,skip_packaging,skip_tests,verbose -o '' -- "$@")"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -20,6 +21,7 @@ while [ $# -gt 0 ]; do
     --skip_deps) install_deps=false; shift ;;
     --skip_packaging) run_packaging=false; shift; ;;
     --skip_tests) run_tests=false; shift; ;;
+    --verbose) verbose="--verbose"; shift;;
     --) shift; break ;;
     *) echo "getopt error" >&2; exit 1 ;;
   esac
@@ -44,23 +46,22 @@ echo Building PSOL binaries...
 
 MAKE_ARGS=(V=1 BUILDTYPE=$buildtype)
 
-mkdir -p log/
-
 if ! [ -f Makefile ]; then
   # Run gyp to generate Makefiles.
-  python build/gyp_chromium --depth=.
+  run_with_log "$verbose" log/gyp.log python build/gyp_chromium --depth=.
 fi
 
 if $run_tests; then
-  run_with_log log/psol_build.log make "${MAKE_ARGS[@]}" \
+  run_with_log "$verbose" log/psol_build.log make "${MAKE_ARGS[@]}" \
     mod_pagespeed_test pagespeed_automatic_test
 fi
 
 # Using a subshell to contain the cd.
 mps_root=$PWD
 (cd pagespeed/automatic && \
- run_with_log ../../log/psol_automatic_build.log make "${MAKE_ARGS[@]}" \
-     MOD_PAGESPEED_ROOT=$mps_root CXXFLAGS="-DSERF_HTTPS_FETCHING=1" all)
+  run_with_log "$verbose" ../../log/psol_automatic_build.log \
+  make "${MAKE_ARGS[@]}" MOD_PAGESPEED_ROOT=$mps_root \
+  CXXFLAGS="-DSERF_HTTPS_FETCHING=1" all)
 
 version_h=out/$buildtype/obj/gen/net/instaweb/public/version.h
 if [ ! -f $version_h ]; then
