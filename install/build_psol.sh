@@ -8,14 +8,16 @@ cd $(dirname "$BASH_SOURCE")/..
 source install/build_env.sh || exit 1
 
 buildtype=Release
+install_deps=true
 run_tests=true
 run_packaging=true
 
-eval set -- "$(getopt --long debug,skip_packaging,skip_tests -o '' -- "$@")"
+eval set -- "$(getopt --long debug,skip_deps,skip_packaging,skip_tests -o '' -- "$@")"
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --debug) buildtype=Debug; shift; ;;
+    --skip_deps) install_deps=false; shift ;;
     --skip_packaging) run_packaging=false; shift; ;;
     --skip_tests) run_tests=false; shift; ;;
     --) shift; break ;;
@@ -31,6 +33,11 @@ fi
 if $run_packaging && [ -e psol ] ; then
   echo "A psol/ directory already exists. Move it somewhere else and rerun."
   exit 1
+fi
+
+if $install_deps; then
+  echo Installing required packages...
+  sudo install/install_required_packages.sh --additional_test_packages
 fi
 
 echo Building PSOL binaries...
