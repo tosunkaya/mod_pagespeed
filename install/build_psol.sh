@@ -42,17 +42,9 @@ fi
 
 echo Building PSOL binaries...
 
-if [ -e /usr/lib/gcc-mozilla/bin/gcc ]; then
-  # gcc-mozilla is installed; use it.
-  export PATH="/usr/lib/gcc-mozilla/bin:$PATH"
-fi
-
 MAKE_ARGS=(V=1 BUILDTYPE=$buildtype)
 
-if ! [ -f Makefile ]; then
-  # Run gyp to generate Makefiles.
-  run_with_log log/gyp.log python build/gyp_chromium --depth=.
-fi
+run_with_log log/gyp.log python build/gyp_chromium --depth=.
 
 if $run_tests; then
   run_with_log log/psol_build.log make "${MAKE_ARGS[@]}" \
