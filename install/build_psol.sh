@@ -44,7 +44,7 @@ echo Building PSOL binaries...
 
 if [ -e /usr/lib/gcc-mozilla/bin/gcc ]; then
   # gcc-mozilla is installed; use it.
-  export PATH="/usr/lib/gcc-mozilla/bin/gcc:$PATH"
+  export PATH="/usr/lib/gcc-mozilla/bin:$PATH"
 fi
 
 MAKE_ARGS=(V=1 BUILDTYPE=$buildtype)
