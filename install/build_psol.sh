@@ -36,6 +36,8 @@ echo Building PSOL binaries...
 
 MAKE_ARGS=(V=1 BUILDTYPE=$buildtype)
 
+mkdir -p log/
+
 if $run_tests; then
   run_with_log log/psol_build.log make "${MAKE_ARGS[@]}" \
     mod_pagespeed_test pagespeed_automatic_test
