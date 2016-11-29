@@ -37,7 +37,7 @@ fi
 
 if $install_deps; then
   echo Installing required packages...
-  sudo install/install_required_packages.sh --additional_test_packages
+  sudo install/install_required_packages.sh --additional_dev_packages
 fi
 
 echo Building PSOL binaries...
