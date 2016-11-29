@@ -107,7 +107,10 @@
 #    CONF=OptDebug
 #     - build optimized binaries with debug info (-O2 -g)
 
-PATH := /usr/local/bin/:/usr/bin:$(PATH)
+# We need gcc-mozilla/bin to pick up our special gcc 4.8 for old versions of
+# ubuntu.  It's ok to have it in the path even if we're on a machine where that
+# directory doesn't exist; bash will just move on.
+PATH := /usr/lib/gcc-mozilla/bin/:/usr/local/bin/:/usr/bin:$(PATH)
 
 GIT_SRC = $(realpath ${PWD}/..)
 DEVEL_DIR = $(GIT_SRC)/devel
