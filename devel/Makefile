@@ -110,7 +110,7 @@
 # We need gcc-mozilla/bin to pick up our special gcc 4.8 for old versions of
 # ubuntu.  It's ok to have it in the path even if we're on a machine where that
 # directory doesn't exist; bash will just move on.
-PATH := /usr/lib/gcc-mozilla/bin/:/usr/local/bin/:/usr/bin:$(PATH)
+PATH := /usr/lib/gcc-mozilla/bin:/usr/local/bin:/usr/bin:$(PATH)
 export PATH
 
 GIT_SRC = $(realpath ${PWD}/..)
@@ -149,6 +149,11 @@ MAKE := $(MAKE) --no-print-directory OBJDIR=$(OBJDIR)
 # TODO(vchudnov): Not all of these may be problematic. Narrow down
 # this list if possible.
 unexport CC CXX GYP_DEFINES GYP_GENERATORS http_proxy
+
+# gcc-mozilla contains /usr/lib/gcc-mozilla/bin/gcc but not
+# /usr/lib/gcc-mozilla/bin/cc so if we want to use gcc-mozilla, which we do on
+# Ubuntu 12 LTS, then we need to explicitly set CC=gcc.
+export CC=gcc
 
 # By default, precompiled JS files are used. When developing, though, we want to
 # enable local compilation of JS, so export the flag that enables use of the
