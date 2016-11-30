@@ -1,15 +1,13 @@
 language: c++
 git:
   submodules: false
-# By default travis loads submodules serially, but we can load them in parallel
-# if we install an updated git and use --jobs.  Some timing numbers:
-#   serial: 263s
-#   jobs=4: 184s (33s to install new git, 151s to run the downloads)
+# See ngx_pagespeed/.travis.yml for details on why we're installing our own
+# git.
 before_install:
   - sudo add-apt-repository --yes ppa:git-core/ppa
   - sudo apt-get update
   - sudo apt-get install git
-  - git submodule update --init --recursive --jobs=4 --depth 1
+  - git submodule update --init --recursive --jobs=8
 env:
   global:
     - MAKEFLAGS=-j3
