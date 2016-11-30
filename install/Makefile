@@ -117,7 +117,7 @@ ENABLE_PROXY = 0
 # Load system-specific make variables. Do this after all the defaults have been
 # set above.
 DISTRO_NAME = $(shell lsb_release -is | tr A-Z a-z)
-include $(MOD_PAGESPEED_ROOT)/install/$(DISTRO_NAME)/make_vars.mk
+include $(GIT_SRC)/install/$(DISTRO_NAME)/make_vars.mk
 
 .PHONY : config_file echo_vars
 
