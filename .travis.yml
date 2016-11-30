@@ -1,10 +1,13 @@
 language: c++
 # Theoretically, this would allow us to clone subdmoules in parallel, which is quite slow.
 # However, travis's git submodule doesn't understand --jobs
-#git:
-#  submodules: false
-#before_install:
-#  - git submodule update --init --recursive --jobs=4
+git:
+  submodules: false
+before_install:
+  - sudo add-apt-repository ppa:git-core/ppa
+  - sudo apt-get update
+  - sudo apt-get install git
+  - git submodule update --init --recursive --jobs=4
 env:
   global:
     - MAKEFLAGS=-j3
