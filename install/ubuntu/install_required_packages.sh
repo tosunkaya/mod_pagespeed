@@ -31,7 +31,7 @@ fi
 
 # Sometimes the names of packages change between versions.  This goes through
 # its arguments and returns the first package name that exists on this OS.
-function pick_available_version() {
+function first_available_package() {
   for candidate_version in "$@"; do
     if [ -n "$(apt-cache search --names-only "^${candidate_version}$")" ]; then
       echo "$candidate_version"
@@ -45,7 +45,7 @@ function pick_available_version() {
 install_redis_from_src=false
 if "$additional_dev_packages"; then
   binary_packages+=(memcached autoconf valgrind libev-dev libssl-dev
-    libpcre3-dev openjdk-7-jre language-pack-tr-base gperf)
+    libpcre3-dev default-jre language-pack-tr-base gperf)
 
   if version_compare $(lsb_release -sr) -ge 16.04; then
     binary_packages+=(redis-server)
@@ -54,10 +54,10 @@ if "$additional_dev_packages"; then
   fi
 
   binary_packages+=( \
-    $(pick_available_version libtool-bin libtool)
-    $(pick_available_version php-cgi php5-cgi)
-    $(pick_available_version libapache2-mod-php libapache2-mod-php5)
-    $(pick_available_version php-mbstring libapache2-mod-php5))
+    $(first_available_package libtool-bin libtool)
+    $(first_available_package php-cgi php5-cgi)
+    $(first_available_package libapache2-mod-php libapache2-mod-php5)
+    $(first_available_package php-mbstring libapache2-mod-php5))
 fi
 
 apt-get -y install "${binary_packages[@]}"

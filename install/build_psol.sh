@@ -12,7 +12,8 @@ install_deps=true
 run_tests=true
 run_packaging=true
 
-eval set -- "$(getopt --long debug,skip_deps,skip_packaging,skip_tests -o '' -- "$@")"
+eval set -- "$(getopt --long debug,skip_deps,skip_packaging,skip_tests \
+                      -o '' -- "$@")"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -37,7 +38,8 @@ fi
 
 if $install_deps; then
   echo Installing required packages...
-  sudo install/install_required_packages.sh --additional_dev_packages
+  run_with_log log/install_deps.log \
+    sudo install/install_required_packages.sh --additional_dev_packages
 fi
 
 echo Building PSOL binaries...

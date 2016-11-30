@@ -111,6 +111,7 @@
 # ubuntu.  It's ok to have it in the path even if we're on a machine where that
 # directory doesn't exist; bash will just move on.
 PATH := /usr/lib/gcc-mozilla/bin/:/usr/local/bin/:/usr/bin:$(PATH)
+export PATH
 
 GIT_SRC = $(realpath ${PWD}/..)
 DEVEL_DIR = $(GIT_SRC)/devel
