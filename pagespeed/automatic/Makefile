@@ -210,7 +210,7 @@ else
 endif
 INCLUDE_ARCH = arch/linux/x64
 LIBS = $(addprefix $(MOD_PAGESPEED_ROOT)/out/$(BUILDTYPE)/obj.target/, $(BASE_LIBS))
-SYSLIBS = -lpthread -lrt
+SYSLIBS = -lpthread -lrt -luuid
 TESTBENCH_LIB = $(MOD_PAGESPEED_ROOT)/out/$(BUILDTYPE)/obj.target/third_party/re2/libre2_bench_util.a
 
 build_libraries :
@@ -258,7 +258,7 @@ all : build_libraries
 # Flags used to compile static_rewriter.cc.  Note that these are not
 # the flags used to compile pagespeed_automatic, which is compiled
 # with either BUILDTYPE=Release or BUILDTYPE=Debug
-override CXXFLAGS := $(CXXFLAGS) -std=gnu++0x -D_GLIBCXX_USE_CXX11_ABI=0
+override CXXFLAGS := $(CXXFLAGS) -std=gnu++0x -D_GLIBCXX_USE_CXX11_ABI=0 -static-libstdc++
 
 $(PSOL) : $(LIBS)
 	@echo Merging libraries, logs in $(MERGE_LOG) ...
